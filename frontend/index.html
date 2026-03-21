@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Digital Talent System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h1>Digital Talent System</h1>
+
+        <div class="toggle">
+            <button onclick="showRegister()">Register</button>
+            <button onclick="showLogin()">Login</button>
+        </div>
+
+        <!-- Register -->
+        <div id="registerBox">
+            <input type="text" id="regName" placeholder="Full Name">
+            <input type="email" id="regEmail" placeholder="Email">
+            <input type="password" id="regPassword" placeholder="Password">
+            <button class="main-btn" onclick="register()">Create Account</button>
+        </div>
+
+        <!-- Login -->
+        <div id="loginBox" style="display:none;">
+            <input type="email" id="loginEmail" placeholder="Email">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button class="main-btn" onclick="login()">Login</button>
+        </div>
+
+        <p id="message"></p>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
