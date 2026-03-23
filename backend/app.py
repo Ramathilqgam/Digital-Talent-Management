@@ -10,6 +10,12 @@ def create_app():
     mongo.init_app(app)
     CORS(app)
 
+    # ✅ ADD THIS HERE
+    @app.route("/")
+    def home():
+        return "Backend is running successfully 🚀"
+
+    # Routes
     from routes.auth_routes import auth_bp
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
 

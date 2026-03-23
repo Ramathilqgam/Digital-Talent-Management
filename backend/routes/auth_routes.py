@@ -1,12 +1,10 @@
 from flask import Blueprint, request, jsonify
-from flask_pymongo import PyMongo
 from models.user_model import UserModel
 from utils.auth_utils import hash_password, verify_password, generate_token
-from extensions import mongo
+from extensions import mongo   # ✅ USE THIS
 
 auth_bp = Blueprint("auth", __name__)
 
-mongo = PyMongo()
 user_model = None
 
 
@@ -21,6 +19,8 @@ def get_user_model():
 def register():
     user_model = get_user_model()
     data = request.get_json()
+
+    print("REGISTER DATA:", data)   # ✅ debug
 
     if user_model.find_by_email(data["email"]):
         return jsonify({"error": "User already exists"}), 400
