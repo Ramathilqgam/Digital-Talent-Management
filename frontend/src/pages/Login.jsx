@@ -421,13 +421,9 @@ export default function Login({ onNavigateToRegister }) {
     return e;
   };
  
+ 
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length) { setErrors(errs); return; }
-    setErrors({});
-    setLoading(true);
-const handleSubmit = async (e) => {
   e.preventDefault();
 
   const errs = validate();
@@ -448,27 +444,24 @@ const handleSubmit = async (e) => {
       }
     );
 
-    // ✅ Store token
+    // ✅ Save token
     localStorage.setItem("token", res.data.token);
 
     setSuccess(true);
 
-    // ✅ Redirect to dashboard
+    // ✅ Redirect after 1 second
     setTimeout(() => {
       window.location.href = "/dashboard";
-    }, 1500);
+    }, 1000);
 
   } catch (err) {
     setErrors({
-      general: err.response?.data?.error || "Login failed"
+      general: err.response?.data?.error || "Login failed",
     });
   } finally {
     setLoading(false);
   }
 };
-    setLoading(false);
-    setSuccess(true);
-  };
  
   const update = (field) => (e) => {
     setForm(f => ({ ...f, [field]: e.target.value }));

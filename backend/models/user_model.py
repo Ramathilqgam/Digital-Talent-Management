@@ -1,17 +1,18 @@
-class UserModel:
+class TaskModel:
     def __init__(self, mongo):
-        self.collection = mongo.db.users
+        self.collection = mongo.db.tasks
 
-    def create_user(self, user_data):
-        return self.collection.insert_one(user_data)
+    def create_task(self, task_data):
+        return self.collection.insert_one(task_data)
 
-    def find_by_email(self, email):
-        return self.collection.find_one({"email": email})
+    def get_tasks(self):
+        return list(self.collection.find())
 
-    def to_json(self, user):
-        return {
-            "id": str(user["_id"]),
-            "name": user["name"],
-            "email": user["email"],
-            "role": user.get("role", "user")
-        }
+    def update_task(self, task_id, updated_data):
+        return self.collection.update_one(
+            {"_id": task_id},
+            {"$set": updated_data}
+        )
+
+    def delete_task(self, task_id):
+        return self.collection.delete_one({"_id": task_id})

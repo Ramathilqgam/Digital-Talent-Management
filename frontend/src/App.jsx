@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";   // ✅ NEW
 
 function LoginWrapper() {
   const navigate = useNavigate();
@@ -22,6 +23,9 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginWrapper />} />
         <Route path="/register" element={<RegisterWrapper />} />
+        
+        {/* ✅ ADD THIS */}
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );
