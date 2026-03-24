@@ -4,15 +4,19 @@ import Register from "./pages/Register";
 
 function LoginWrapper() {
   const navigate = useNavigate();
-  return <Login onNavigateToRegister={() => navigate("/register")} />;
+  return (
+    <Login onNavigateToRegister={() => navigate("/register")} />
+  );
 }
 
 function RegisterWrapper() {
   const navigate = useNavigate();
-  return <Register onNavigateToLogin={() => navigate("/")} />;
+  return (
+    <Register onNavigateToLogin={() => navigate("/")} />
+  );
 }
 
-export default function App() {
+function App() {
   return (
     <BrowserRouter>
       <Routes>
@@ -22,3 +26,5 @@ export default function App() {
     </BrowserRouter>
   );
 }
+
+export default App;

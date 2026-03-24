@@ -1,4 +1,4 @@
-
+import axios from "axios";
 import { useState } from "react";
  
 const styles = `
@@ -427,7 +427,45 @@ export default function Login({ onNavigateToRegister }) {
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setErrors({});
     setLoading(true);
-    await new Promise(r => setTimeout(r, 1400));
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const errs = validate();
+  if (Object.keys(errs).length) {
+    setErrors(errs);
+    return;
+  }
+
+  setErrors({});
+  setLoading(true);
+
+  try {
+    const res = await axios.post(
+      "http://127.0.0.1:5000/api/auth/login",
+      {
+        email: form.email,
+        password: form.password,
+      }
+    );
+
+    // ✅ Store token
+    localStorage.setItem("token", res.data.token);
+
+    setSuccess(true);
+
+    // ✅ Redirect to dashboard
+    setTimeout(() => {
+      window.location.href = "/dashboard";
+    }, 1500);
+
+  } catch (err) {
+    setErrors({
+      general: err.response?.data?.error || "Login failed"
+    });
+  } finally {
+    setLoading(false);
+  }
+};
     setLoading(false);
     setSuccess(true);
   };
@@ -458,7 +496,11 @@ export default function Login({ onNavigateToRegister }) {
  
             {!success && (
               <form onSubmit={handleSubmit}>
-                <div className="form-group">
+
+                {errors.general && (
+                  <div className="error-msg">{errors.general}</div>
+              )}                
+              <div className="form-group">
                   <label className="form-label">Email address</label>
                   <div className="input-wrap">
                     <input
